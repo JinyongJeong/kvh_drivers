@@ -147,7 +147,7 @@ int main(int argc, char **argv)
   string port_name;
   ros::param::param<std::string>("~port", port_name, "/dev/ttyUSB0");
   int32_t mode;
-  ros::param::param<int32_t>("~mode", mode, KVH_DSP3000_RATE);
+  ros::param::param<int32_t>("~mode", mode, KVH_DSP3000_INTEGRATED_ANGLE);
   if (mode != KVH_DSP3000_RATE && mode != KVH_DSP3000_INCREMENTAL_ANGLE && mode != KVH_DSP3000_INTEGRATED_ANGLE)
   {
     ROS_ERROR("bad mode: %d", mode);
@@ -189,7 +189,7 @@ int main(int argc, char **argv)
     {
       // Subtract 1 from sizeof(temp_buffer) because we will manually null terminate later
       int const new_bytes =
-          device.readLine(&temp_buffer[temp_buffer_length], sizeof(temp_buffer) - temp_buffer_length - 1, TIMEOUT);
+          device.read(&temp_buffer[temp_buffer_length], sizeof(temp_buffer) - temp_buffer_length - 1, TIMEOUT);
       temp_buffer_length += new_bytes;
       ignoring_buffer_overflow = false;
     }
