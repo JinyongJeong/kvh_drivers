@@ -3,7 +3,7 @@
 #ifndef KVH_DSP3000_PARSER_H
 #define KVH_DSP3000_PARSER_H
 
-#include "kvh/dsp3000_mode.h"
+#include "dsp3000_mode.h"
 
 struct ParseDsp3000Data
 {

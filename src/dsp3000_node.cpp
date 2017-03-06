@@ -42,11 +42,14 @@
 #include <string>
 #include <tuple>
 #include <vector>
-#include "kvh/dsp3000_mode.h"
-#include "kvh/dsp3000_parser.h"
-#include "kvh/serial_port.h"
+#include "dsp3000_mode.h"
+#include "dsp3000_parser.h"
+#include "serial_port.h"
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
+
+#include <kvh_driver/kvh.h>
+
 
 static constexpr int TIMEOUT = 1000;
 static constexpr float PI = 3.14159265359f;
@@ -159,7 +162,7 @@ int main(int argc, char **argv)
   // Define the publisher topic name
   ros::NodeHandle n;
   ros::Publisher dsp3000_pub =
-      n.advertise<std_msgs::Float32>("dsp3000_" + get_mode_topic_name(static_cast<KvhDsp3000Mode>(mode)), 100);
+      n.advertise<kvh_driver::kvh>("dsp3000_" + get_mode_topic_name(static_cast<KvhDsp3000Mode>(mode)), 100);
 
   SerialPort device;
 
@@ -252,12 +255,15 @@ int main(int argc, char **argv)
         else
         {
           // Declare the sensor message
-          std_msgs::Float32 dsp_out;
+          kvh_driver::kvh kvh_data;
+
           float const rotation_measurement_rad = (parsed_data.value * PI) / 180.0f;
-          dsp_out.data = (invert ? -rotation_measurement_rad : rotation_measurement_rad);
+          kvh_data.header.stamp  = ros::Time::now();
+          kvh_data.header.frame_id = "kvh";
+          kvh_data.data = (invert ? -rotation_measurement_rad : rotation_measurement_rad);
 
           // Publish the joint state message
-          dsp3000_pub.publish(dsp_out);
+          dsp3000_pub.publish(kvh_data);
         }
       }
       else if (!ignoring_buffer_overflow && temporary_buffer_ignore_limit >= 100)

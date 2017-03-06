@@ -1,5 +1,5 @@
 <package>
-  <name>kvh</name>
+  <name>kvh_driver</name>
   <version>1.0.2</version>
   <description>A driver for the KVH DSP-3000 single-axis Fiber Optic Gyroscope.</description>
   <maintainer email="geoffrey.viola@asirobots.com">Geoffrey Viola</maintainer>
@@ -20,6 +20,8 @@
 
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
+  <build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend>
 
 <export>
     <cpp lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib -ldsp3000" cflags="-I${prefix}/include"/>

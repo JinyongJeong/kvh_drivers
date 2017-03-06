@@ -49,7 +49,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "kvh/serial_port.h"
+#include "serial_port.h"
 
 //! Macro for throwing an exception with a message, passing args
 #define SERIAL_EXCEPT(except, msg, ...)                                                                                \

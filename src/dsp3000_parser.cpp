@@ -1,6 +1,6 @@
 // Copyright Autonomous Solutions Inc. 2016
 
-#include "kvh/dsp3000_parser.h"
+#include "dsp3000_parser.h"
 #include <cstdlib>
 
 static bool is_important_symbol(char const c);
