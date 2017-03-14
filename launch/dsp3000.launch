@@ -1,5 +1,7 @@
 <launch>
     <node pkg="kvh_driver" type="dsp3000" name="dsp3000" respawn="true">
         <param name="port" type="string" value="/dev/ttyUSB-fog"/>
+        <param name="baudrate" type="int" value="38400"/>
+        
     </node>
 </launch>

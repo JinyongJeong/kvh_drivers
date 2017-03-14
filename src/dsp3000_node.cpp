@@ -148,7 +148,9 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "dsp3000");
 
   string port_name;
-  ros::param::param<std::string>("~port", port_name, "/dev/ttyUSB0");
+  ros::param::param<std::string>("~port", port_name, "/dev/ttyUSB-fog");
+  int baurate;
+  ros::param::param<int>("~baudrate", baurate, 38400);
   int32_t mode;
   ros::param::param<int32_t>("~mode", mode, KVH_DSP3000_INTEGRATED_ANGLE);
   if (mode != KVH_DSP3000_RATE && mode != KVH_DSP3000_INCREMENTAL_ANGLE && mode != KVH_DSP3000_INTEGRATED_ANGLE)
@@ -168,7 +170,7 @@ int main(int argc, char **argv)
 
   try
   {
-    device.open(port_name.c_str(), 38400);
+    device.open(port_name.c_str(), baurate);
   }
   catch (SerialException &e)
   {
